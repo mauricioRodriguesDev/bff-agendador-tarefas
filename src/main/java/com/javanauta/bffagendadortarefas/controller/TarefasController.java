@@ -26,7 +26,7 @@ public class TarefasController implements ITarefasApi {
 
     @PostMapping
     public ResponseEntity<TarefasDTOResponse> gravarTarefas(@RequestBody TarefasDTORequest dto,
-                                                            @RequestHeader(name = "Authorization", required = false) String token) {
+                                                            @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.gravarTarefa(token, dto));
     }
 
@@ -34,20 +34,20 @@ public class TarefasController implements ITarefasApi {
     public ResponseEntity<List<TarefasDTOResponse>> buscarTarefasAgendadasPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.buscarTarefasAgendadasPorPeriodo(dataInicial, dataFinal, token));
     }
 
 
     @GetMapping
     public ResponseEntity<List<TarefasDTOResponse>> buscarTarefasPorEmail(
-            @RequestHeader(name = "Authorization", required = false) String token) {
+            @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.buscarTarefasPorEmail(token));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deletaTarefasPorId(@RequestParam("id") String id,
-                                                   @RequestHeader(name = "Authorization", required = false) String token) {
+                                                   @RequestHeader(value = "Authorization", required = false) String token) {
 
         tarefasService.deletaTarefaPorId(id, token);
 
@@ -57,7 +57,7 @@ public class TarefasController implements ITarefasApi {
     @PatchMapping
     public ResponseEntity<TarefasDTOResponse> alteraStatusTarefa(@RequestParam("status") StatusNotificacaoEnum status,
                                                                  @RequestParam("id") String id,
-                                                                 @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                 @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.alteraStatusTarefas(status, id, token));
 
     }
@@ -65,7 +65,7 @@ public class TarefasController implements ITarefasApi {
     @PutMapping
     public ResponseEntity<TarefasDTOResponse> udateTarefas(@RequestBody TarefasDTORequest dto,
                                                            @RequestParam("id") String id,
-                                                           @RequestHeader(name = "Authorization", required = false) String token) {
+                                                           @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.updateTarefas(dto, id, token));
     }
 

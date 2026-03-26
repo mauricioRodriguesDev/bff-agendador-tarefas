@@ -10,6 +10,8 @@ import com.javanauta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
 import com.javanauta.bffagendadortarefas.controller.docs.IUsuarioApi;
+import com.javanauta.bffagendadortarefas.infrastructure.security.SecurityConfig;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/usuario")
 @RequiredArgsConstructor
+@SecurityRequirement(name = SecurityConfig.SECURITY_SCHEME)
 public class UsuarioController implements IUsuarioApi {
 
     private final UsuarioService usuarioService;
@@ -38,14 +41,14 @@ public class UsuarioController implements IUsuarioApi {
 
     @GetMapping
     public ResponseEntity<UsuarioDTOResponse> buscaUsuarioPorEmail(@RequestParam("email") String email,
-                                                                   @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                   @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email, token));
     }
 
 
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deletaUsuarioPorEmail(@PathVariable String email,
-                                                      @RequestHeader(name = "Authorization", required = false) String token) {
+                                                      @RequestHeader(value = "Authorization", required = false) String token) {
         usuarioService.deletaUsuarioPorEmail(email, token);
         return ResponseEntity.ok().build();
     }
@@ -53,7 +56,7 @@ public class UsuarioController implements IUsuarioApi {
 
     @PutMapping
     public ResponseEntity<UsuarioDTOResponse> atualizaDadosUsuario(@RequestBody UsuarioDTORequest dto,
-                                                                   @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                   @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
 
     }
@@ -62,7 +65,7 @@ public class UsuarioController implements IUsuarioApi {
     @PutMapping("/endereco")
     public ResponseEntity<EnderecoDTOResponse> atualizaEndereco(@RequestBody EnderecoDTORequest dto,
                                                                 @RequestParam("id") Long id,
-                                                                @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto, token));
     }
 
@@ -70,21 +73,21 @@ public class UsuarioController implements IUsuarioApi {
     @PutMapping("/telefone")
     public ResponseEntity<TelefoneDTOResponse> atualizaTelefone(@RequestBody TelefoneDTORequest dto,
                                                                 @RequestParam("id") Long id,
-                                                                @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto, token));
     }
 
 
     @PostMapping("/endereco")
     public ResponseEntity<EnderecoDTOResponse> cadastraEndereco(@RequestBody EnderecoDTORequest dto,
-                                                                @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.cadastraEndereco(token, dto));
     }
 
 
     @PostMapping("/telefone")
     public ResponseEntity<TelefoneDTOResponse> cadastraTelefone(@RequestBody TelefoneDTORequest dto,
-                                                                @RequestHeader(name = "Authorization", required = false) String token) {
+                                                                @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.cadastraTelefone(token, dto));
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TarefasService {
 
-    public final TarefasClient client;
+    private final TarefasClient client;
 
 
     public TarefasDTOResponse gravarTarefa(String token, TarefasDTORequest dto) {
