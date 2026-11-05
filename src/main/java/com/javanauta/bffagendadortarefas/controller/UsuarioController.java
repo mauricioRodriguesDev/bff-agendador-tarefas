@@ -9,6 +9,7 @@ import com.javanauta.bffagendadortarefas.business.dto.in.UsuarioDTORequest;
 import com.javanauta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
+import com.javanauta.bffagendadortarefas.business.dto.out.ViaCepDTOResponse;
 import com.javanauta.bffagendadortarefas.controller.docs.IUsuarioApi;
 import com.javanauta.bffagendadortarefas.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -89,6 +90,12 @@ public class UsuarioController implements IUsuarioApi {
     public ResponseEntity<TelefoneDTOResponse> cadastraTelefone(@RequestBody TelefoneDTORequest dto,
                                                                 @RequestHeader(value = "Authorization", required = false) String token) {
         return ResponseEntity.ok(usuarioService.cadastraTelefone(token, dto));
+    }
+
+    @GetMapping ("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTOResponse> buscarDadosCep (@PathVariable ("cep") String cep) {
+
+        return ResponseEntity.ok(usuarioService.buscarEnderecoPorCep(cep));
     }
 
 
