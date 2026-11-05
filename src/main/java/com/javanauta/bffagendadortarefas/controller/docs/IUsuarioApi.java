@@ -8,6 +8,7 @@ import com.javanauta.bffagendadortarefas.business.dto.in.UsuarioDTORequest;
 import com.javanauta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
+import com.javanauta.bffagendadortarefas.business.dto.out.ViaCepDTOResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -90,5 +91,13 @@ public interface IUsuarioApi {
     @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @PostMapping("/telefone")
     ResponseEntity<TelefoneDTOResponse> cadastraTelefone(TelefoneDTORequest telefoneDTO, String token);
+
+
+    @Operation(summary = "Busca endereco pelo Cep", description = "Busca dados de endereco recebendo um cep")
+    @ApiResponse(responseCode = "200", description = "Dados de endereco retornado com sucesso")
+    @ApiResponse(responseCode = "400", description = "Cep Invalido")
+    @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @GetMapping("endereco/{cep}")
+    ResponseEntity<ViaCepDTOResponse> buscarDadosCep(String cep);
 
 }
