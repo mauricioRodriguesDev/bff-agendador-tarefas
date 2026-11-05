@@ -41,7 +41,7 @@ public class UsuarioController implements IUsuarioApi {
 
     @GetMapping
     public ResponseEntity<UsuarioDTOResponse> buscaUsuarioPorEmail(@RequestParam("email") String email,
-                                                                   @RequestHeader(value = "Authorization", required = false) String token) {
+                                                                   @RequestHeader(value = "Authorization", required=false) String token) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email, token));
     }
 

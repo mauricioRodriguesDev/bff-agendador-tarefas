@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public interface UsuarioClient {
 
     @GetMapping("/usuario")
-    UsuarioDTOResponse buscaUsuarioPorEmail(@RequestParam("email") String email,
-                                            @RequestHeader("Authorization") String token);
+    UsuarioDTOResponse buscaUsuarioPorEmail(@RequestParam("email") String email, String token);
 
     @PostMapping
     UsuarioDTOResponse salvaUsuario(@RequestBody UsuarioDTORequest dto);

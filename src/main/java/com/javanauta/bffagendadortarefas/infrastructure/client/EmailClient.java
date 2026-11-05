@@ -2,7 +2,6 @@ package com.javanauta.bffagendadortarefas.infrastructure.client;
 
 import com.javanauta.bffagendadortarefas.business.dto.out.TarefasDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

@@ -23,7 +23,7 @@ public interface IUsuarioApi {
 
     @Operation(summary = "Salva um usuario", description = "Criar um novo usuario")
     @ApiResponse(responseCode = "200", description = "Usuario salvo com sucesso")
-    @ApiResponse(responseCode = "400", description = "Usuario ja cadastrado")
+    @ApiResponse(responseCode = "409", description = "Usuario ja cadastrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     @PostMapping
     ResponseEntity<UsuarioDTOResponse> salvaUsuario(UsuarioDTORequest usuarioDTO);
@@ -37,50 +37,57 @@ public interface IUsuarioApi {
 
     @Operation(summary = "Buscar dados de usuario por Email", description = "Buscar dados do usuario")
     @ApiResponse(responseCode = "200", description = "Usuario encontrado com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao cadastrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao cadastrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @GetMapping
     ResponseEntity<UsuarioDTOResponse> buscaUsuarioPorEmail(String email, String token);
 
     @Operation(summary = "Deletar usuario por ID", description = "Deleta usuario")
     @ApiResponse(responseCode = "200", description = "Usuario deletado com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao encontrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao encontrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @DeleteMapping("/{email}")
     ResponseEntity<Void> deletaUsuarioPorEmail(String email, String token);
 
     @Operation(summary = "Atualizar dados de Usuarios", description = "Atualizar dados de usuario")
     @ApiResponse(responseCode = "200", description = "Usuario atualizado com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao cadastrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao cadastrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @PutMapping
     ResponseEntity<UsuarioDTOResponse> atualizaDadosUsuario(UsuarioDTORequest usuarioDTO, String Token);
 
     @Operation(summary = "Atualiza Endereco de Usuario", description = "Atualizar enderecos de usuario")
     @ApiResponse(responseCode = "200", description = "Endereco atualizado com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao encontrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao encontrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @PutMapping("/endereco")
     ResponseEntity<EnderecoDTOResponse> atualizaEndereco(EnderecoDTORequest enderecoDTO, Long id, String token);
 
     @Operation(summary = "Atualiza Telefones de Usuario", description = "Atualizar telefones de usuarios")
     @ApiResponse(responseCode = "200", description = "Telefone atualizado com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao encontrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao encontrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @PutMapping("/telefone")
     ResponseEntity<TelefoneDTOResponse> atualizaTelefone(TelefoneDTORequest telefoneDTO, Long id, String token);
 
     @Operation(summary = "Salva Endereco de Usuario", description = "Salvar o endereco de um usuario")
     @ApiResponse(responseCode = "200", description = "Endereco salvo com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao encontrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao encontrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @PostMapping("/endereco")
     ResponseEntity<EnderecoDTOResponse> cadastraEndereco(EnderecoDTORequest enderecoDTO, String token);
 
     @Operation(summary = "Salva Telefone Usuario", description = "Salvar o telefone de um usuario")
     @ApiResponse(responseCode = "200", description = "Telefone salvo com sucesso")
-    @ApiResponse(responseCode = "404", description = "Usuario nao encontrado")
+    @ApiResponse(responseCode = "403", description = "Usuario nao encontrado")
     @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    @ApiResponse(responseCode = "401", description = "Credenciais invalidas")
     @PostMapping("/telefone")
     ResponseEntity<TelefoneDTOResponse> cadastraTelefone(TelefoneDTORequest telefoneDTO, String token);
 
