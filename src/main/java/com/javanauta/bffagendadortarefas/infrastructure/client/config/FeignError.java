@@ -9,11 +9,14 @@ import feign.Response;
 import feign.codec.ErrorDecoder;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 
 public class FeignError implements ErrorDecoder {
+
+    private static final String ERRO = "Erro: ";
 
 
     @Override
@@ -24,15 +27,15 @@ public class FeignError implements ErrorDecoder {
 
         switch (response.status()) {
             case 409:
-                return new ConflictException("Erro: " + mensagemErro);
+                return new ConflictException(ERRO + mensagemErro);
             case 403:
-                return new ResourceNotFoundException("Erro: " + mensagemErro);
+                return new ResourceNotFoundException(ERRO + mensagemErro);
             case 401:
-                return new UnauthorizedException("Erro: " + mensagemErro);
+                return new UnauthorizedException(ERRO + mensagemErro);
             case 400:
-                return new IllegalArgumentException("Erro: " + mensagemErro);
+                return new IllegalArgumentException(ERRO + mensagemErro);
             default:
-                return new BusinessException("Erro: " + mensagemErro);
+                return new BusinessException(ERRO + mensagemErro);
         }
     }
 
@@ -43,7 +46,7 @@ public class FeignError implements ErrorDecoder {
             }
             return new String(response.body().asInputStream().readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException("Erro ao ler os bytes do corpo de resposta", e);
         }
     }
 }
