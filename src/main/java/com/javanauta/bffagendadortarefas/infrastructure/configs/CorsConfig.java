@@ -9,13 +9,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfig() {
+    public WebMvcConfigurer corsConfigure() {
         return new WebMvcConfigurer() {
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
+                        .allowedOrigins("http://localhost:4200",
+                                "http://api-agendador-javanauta.cloud",
+                                "https://api-agendador-javanauta.cloud")
                         .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH")
                         .allowedHeaders("*")
                         .allowCredentials(true)
